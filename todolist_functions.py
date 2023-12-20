@@ -6,6 +6,10 @@ def Connect_Mongo(collection_name):
     return database[collection_name]        # collection 작업
 
 def Data_insert(collection, data):
+    # 데이터 입력 전 초기화
+    collection.delete_many({})
+    collection.delete_many({})
+    # 데이터 입력
     collection.insert_many(data)
 
 def User_name(collection):
@@ -19,9 +23,11 @@ def User_name(collection):
 
 def Todos(user_id, collection1, collection2):
     print("ToDo List 중 하나 선택 하세요 !")
+
     doc = collection1.find({})
     count = 1
 
+    # todos_list 컬렉션의 내용 중 'title'만 print
     for i in doc:
         print("{}. {}".format(count, i["title"]), end=" ")
         count+= 1
@@ -37,19 +43,20 @@ def Todos(user_id, collection1, collection2):
     for doc in result_todo:
         inserted_todo = doc['title']
         inserted_todo_id = doc['_id']
+    # user_id, 사용자가 입력한 title과 그에 해당하는 title id, 사용자가 입력한 status를 collection2 컬렉션에 담기
     collection2.insert_one({"user_id" : user_id, "user_todo_id" : inserted_todo_id, "todo_title" : inserted_todo, "user_status" : user_status})
 
 # 종료 여부 입력
 def End(user_id, collection, collection1, collection2):
+    user_end = 'c'
     while True:
-        user_end = input("종료 여부: ")
         if user_end == "c":
             print("")
             Todos(user_id, collection1, collection2)
         elif user_end == "q":
             print("")
             print("------------------------")
-            user_id = User_name(collection)
+            User_name(collection)
             Todos(user_id, collection1, collection2)
         elif user_end == "x":
             print("")
@@ -59,3 +66,4 @@ def End(user_id, collection, collection1, collection2):
         else:
             print("c, q, x 중 하나를 입력하세요.")
             End()
+        user_end = input("종료 여부: ")

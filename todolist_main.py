@@ -24,13 +24,6 @@ user_id = todolist_functions.User_name(collection_participants)
 # todos_list 컬렉션에 todo_list 데이터를 입력
 todolist_functions.Data_insert(collection_todos, todo_list)
 
-# 업무 보고 입력 function Todos()호출
-# todos_list 컬렉션의 내용 중 'title'만 print
-# user_id, 사용자가 입력한 title과 그에 해당하는 title id, 사용자가 입력한 status를 participants_todos 컬렉션에 담기
-todolist_functions.Todos(user_id, collection_todos, collection_participants_todos)
-
 # 종료 여부 입력 function 호출
-# c 입력 시 Todos() 재실행
-# q 입력 시 User_name()과 Todos() 재실행
-# x 입력 시 프로그램 종료.
+# user_end = 'c' --> Todos function 호출 --> 종료 여부 input 반복
 todolist_functions.End(user_id, collection_participants, collection_todos, collection_participants_todos)
