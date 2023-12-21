@@ -5,6 +5,7 @@ def Connect_Mongo(collection_name):
     database = mongoClient["local"]   # database 연결
     return database[collection_name]        # collection 작업
 
+# 데이터 입력 function
 def Data_insert(collection, data):
     # 데이터 입력 전 초기화
     collection.delete_many({})
@@ -12,16 +13,18 @@ def Data_insert(collection, data):
     # 데이터 입력
     collection.insert_many(data)
 
+# 사용자 이름 입력 function
 def User_name(collection):
     #사용자 이름 입력 후 db 저장
     user_name = input("Input Your Name: ")
     print("")
-
     result_participants = collection.insert_one({"user_name" : user_name})
     inserted_participants_id = result_participants.inserted_id
+
     # 사용자 id를 return
     return inserted_participants_id
 
+# 업무 보고 입력 function
 def Todos(user_id, collection1, collection2):
     print("ToDo List 중 하나 선택 하세요 !")
 
@@ -48,7 +51,7 @@ def Todos(user_id, collection1, collection2):
     # user_id, 사용자가 입력한 title과 그 title id, 사용자가 입력한 status를 collection2에 담기
     collection2.insert_one({"user_id" : user_id, "user_todo_id" : inserted_todo_id, "todo_title" : inserted_todo, "user_status" : user_status})
 
-# 종료 여부 입력
+# 종료 여부 입력 function
 def End(collection, collection1, collection2):
     user_end = 'q'
     while True:
