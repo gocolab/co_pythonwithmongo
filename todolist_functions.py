@@ -28,10 +28,9 @@ def User_name(collection):
 def Todos(user_id, collection1, collection2):
     print("ToDo List 중 하나 선택 하세요 !")
 
+    # todos_list 컬렉션의 내용 중 'title'만 print
     result_todo = collection1.find({})
     count = 1
-
-    # todos_list 컬렉션의 내용 중 'title'만 print
     for i in result_todo:
         print("{}. {}".format(count, i["title"]), end=" ")
         count+= 1
