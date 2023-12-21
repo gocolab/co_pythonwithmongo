@@ -20,10 +20,6 @@ collection_participants_todos = todolist_functions.Connect_Mongo("participants_t
 # todos_list 컬렉션에 todo_list 데이터를 입력
 todolist_functions.Data_insert(collection_todos, todo_list)
 
-# 사용자 이름 입력 function User_name()호출
-# 입력된 이름을 participants 컬렉션에 입력 후 return 된 사용자 id를 user_id 변수에 담기
-user_id = todolist_functions.User_name(collection_participants)
-
 # 종료 여부 입력 function 호출
-# user_end = 'c' --> Todos function 호출 --> 종료 여부 입력 (반복)
-todolist_functions.End(user_id, collection_participants, collection_todos, collection_participants_todos)
+# user_end = 'q' --> User_name function 호출 --> Todos function 호출 --> 종료 여부 입력 (반복)
+todolist_functions.End(collection_participants, collection_todos, collection_participants_todos)

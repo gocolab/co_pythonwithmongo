@@ -47,8 +47,8 @@ def Todos(user_id, collection1, collection2):
     collection2.insert_one({"user_id" : user_id, "user_todo_id" : inserted_todo_id, "todo_title" : inserted_todo, "user_status" : user_status})
 
 # 종료 여부 입력
-def End(user_id, collection, collection1, collection2):
-    user_end = 'c'
+def End(collection, collection1, collection2):
+    user_end = 'q'
     while True:
         if user_end == "c":
             print("")
@@ -56,7 +56,7 @@ def End(user_id, collection, collection1, collection2):
         elif user_end == "q":
             print("")
             print("------------------------")
-            User_name(collection)
+            user_id = User_name(collection)
             Todos(user_id, collection1, collection2)
         elif user_end == "x":
             print("")
