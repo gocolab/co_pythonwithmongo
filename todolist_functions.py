@@ -50,14 +50,17 @@ def Todos(user_id, collection1, collection2):
 def End(collection, collection1, collection2):
     user_end = 'q'
     while True:
+        # c 입력 시 Todos() 다시 실행
         if user_end == "c":
             print("")
             Todos(user_id, collection1, collection2)
+        # q 입력 시 User_name() 실행 후 Todos() 다시 실행
         elif user_end == "q":
             print("")
             print("------------------------")
             user_id = User_name(collection)
             Todos(user_id, collection1, collection2)
+        # x 입력 시 프로그램 종료
         elif user_end == "x":
             print("")
             print("------------------------")
