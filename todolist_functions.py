@@ -28,11 +28,11 @@ def User_name(collection):
 def Todos(user_id, collection1, collection2):
     print("ToDo List 중 하나 선택 하세요 !")
 
-    doc = collection1.find({})
+    result_todo = collection1.find({})
     count = 1
 
     # todos_list 컬렉션의 내용 중 'title'만 print
-    for i in doc:
+    for i in result_todo:
         print("{}. {}".format(count, i["title"]), end=" ")
         count+= 1
     print("")
@@ -43,8 +43,8 @@ def Todos(user_id, collection1, collection2):
     user_status = input("Status: ")
 
     # 사용자가 입력한 번호에 해당하는 title과 그 title id를 찾음
-    result_todo = collection1.find().skip(user_input).limit(1)
-    for j in result_todo:
+    result_todo_title = collection1.find().skip(user_input).limit(1)
+    for j in result_todo_title:
         inserted_todo = j['title']
         inserted_todo_id = j['_id']
         
