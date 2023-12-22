@@ -65,12 +65,11 @@ def End(collection, collection1, collection2):
             user_id = User_name(collection)
             Todos(user_id, collection1, collection2)
         # x 입력 시 프로그램 종료
-        elif user_end == "x":
-            print("")
-            print("------------------------")
-            print("프로그램이 종료되었습니다.")
-            break
         else:
-            print("c, q, x 중 하나를 입력하세요.")
-            End()
-        user_end = input("종료 여부: ")
+            break
+
+        print("c, q, x 중 하나를 입력하세요.")
+        user_end = input("진행 여부: ")
+
+    print("------------------------")
+    print("프로그램이 종료되었습니다.")
