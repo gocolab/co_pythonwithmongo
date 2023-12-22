@@ -1,14 +1,14 @@
 from pymongo import MongoClient
+import random
 
 def Connect_Mongo(collection_name):
     mongoClient = MongoClient("mongodb://localhost:27017")    # mongodb 접속
-    database = mongoClient["local"]   # database 연결
+    database = mongoClient["todo_report"]   # database 연결
     return database[collection_name]        # collection 작업
 
 # 데이터 입력 function
 def Data_insert(collection, data):
     # 데이터 입력 전 초기화
-    collection.delete_many({})
     collection.delete_many({})
     # 데이터 입력
     collection.insert_many(data)
@@ -16,8 +16,12 @@ def Data_insert(collection, data):
 # 사용자 이름 입력 function
 def User_name(collection):
     #사용자 이름 입력 후 db 저장
-    user_name = input("Input Your Name: ")
-    print("")
+    # user_name = input("Input Your Name: ")
+    # print("")
+    names = ['John', 'Jane', 'Emily', 'Michael', 'Sarah', 'Alex']
+    user_name = random.choice(names)
+    print("Input Your Name: {}".format(user_name))
+
     result_participants = collection.insert_one({"user_name" : user_name})
     inserted_participants_id = result_participants.inserted_id
 
@@ -31,15 +35,20 @@ def Todos(user_id, collection1, collection2):
     # todos_list 컬렉션의 내용 중 'title'만 print
     result_todo = collection1.find({})
     count = 1
+
     for i in result_todo:
         print("{}. {}".format(count, i["title"]), end=" ")
         count+= 1
     print("")
 
     # todo중 하나 입력
-    user_input = int(input("Title 번호: "))-1
+    # user_input = int(input("Title 번호: "))-1
+    user_input = random.randint(0, count-2)
     # Status 입력
-    user_status = input("Status: ")
+    # user_status = input("Status: ")
+    status = ['완료', '작업 중', '고려 중']
+    user_status = random.choice(status)
+
 
     # 사용자가 입력한 번호에 해당하는 title과 그 title id를 찾음
     result_todo_title = collection1.find().skip(user_input).limit(1)
@@ -52,7 +61,11 @@ def Todos(user_id, collection1, collection2):
 
 # 종료 여부 입력 function
 def End(collection, collection1, collection2):
+    # 선택 가능한 옵션들의 리스트
+    options = ['c', 'q']
+
     user_end = 'q'
+    loop_count = 0
     while True:
         # c 입력 시 Todos() 다시 실행
         if user_end == "c":
@@ -65,12 +78,20 @@ def End(collection, collection1, collection2):
             user_id = User_name(collection)
             Todos(user_id, collection1, collection2)
         # x 입력 시 프로그램 종료
-        elif user_end == "x":
-            print("")
-            print("------------------------")
-            print("프로그램이 종료되었습니다.")
-            break
         else:
-            print("c, q, x 중 하나를 입력하세요.")
-            End()
-        user_end = input("종료 여부: ")
+            break
+
+        print("c, q, x 중 하나를 입력하세요.")
+        # End()
+        # user_end = input("종료 여부: ")
+        # options 리스트에서 무작위로 하나의 요소 선택
+        loop_count += 1  # Increment loop_count first
+        if loop_count < 10:
+            selected_option = random.choice(options)
+            user_end = selected_option
+        else:
+            user_end = 'x'
+        print("진행 여부: {}".format(user_end))
+
+    print("------------------------")
+    print("프로그램이 종료되었습니다.")

@@ -8,7 +8,6 @@ todo_list = [
     {"title": "프로젝트 계획서 수정", "description": "현재 진행 중인 프로젝트의 계획서를 검토하고 필요한 부분을 수정합니다."},
     {"title": "팀 멤버와의 1:1 면담", "description": "팀 멤버와 개별적으로 만나서 그들의 업무 진행 상황, 이슈, 우려사항 등을 논의합니다."},
 ]
-
 # todos_list 컬렉션 생성 후 collection_todos 변수에 담기
 collection_todos = todolist_functions.Connect_Mongo("todos_list")
 # participants 컬렉션 생성 후 collection_participants 변수에 담기
