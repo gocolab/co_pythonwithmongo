@@ -39,7 +39,7 @@ def Todos(user_id, collection1, collection2):
     # todo중 하나 입력
     user_input = input("Title 번호: ")-1           # hint
     # Status 입력
-    user_status = input("Status: ")
+    user_status = int(input("Status: "))           # hint
 
     # 사용자가 입력한 번호에 해당하는 title과 그 title id를 찾음
     result_todo_title = collection1.find().skip(user_input).limit(1)
