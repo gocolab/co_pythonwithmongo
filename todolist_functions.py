@@ -44,11 +44,12 @@ def Todos(user_id, collection1, collection2):
     # todo중 하나 입력
     # user_input = int(input("Title 번호: "))-1
     user_input = random.randint(0, count-2)
+    print("Title 번호: {}".format(user_input))
     # Status 입력
     # user_status = input("Status: ")
     status = ['완료', '작업 중', '고려 중']
     user_status = random.choice(status)
-
+    print("Status: {}".format(user_status))
 
     # 사용자가 입력한 번호에 해당하는 title과 그 title id를 찾음
     result_todo_title = collection1.find().skip(user_input).limit(1)
