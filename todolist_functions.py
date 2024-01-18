@@ -1,7 +1,7 @@
 from pymongo import MongoClient
 
 def Connect_Mongo(collection_name):
-    mongoClient = MongoClient("mongodb://localhost:27017")    # mongodb 접속
+    mongoClient = MongoClient("mongodb://mongodb:27017")    # mongodb 접속
     database = mongoClient["local"]   # database 연결
     return database[collection_name]        # collection 작업
 
@@ -11,7 +11,7 @@ def Data_insert(collection, data):
     collection.delete_many({})
     collection.delete_many({})
     # 데이터 입력
-    collection.insert_one(data)           # hint
+    collection.insert_many(data)           # hint  insert_one -> insert_many
 
 # 사용자 이름 입력 function
 def User_name(collection):
@@ -29,17 +29,17 @@ def Todos(user_id, collection1, collection2):
     print("ToDo List 중 하나 선택 하세요 !")
 
     # todos_list 컬렉션의 내용 중 'title'만 print
-    result_todo = user_id.find({})           # hint
+    result_todo = collection1.find({})           # hint  collcetion1
     count = 1
     for i in result_todo:
-        print("{}. {} {}".format(count, i["title"]), end=" ")           # hint
-        count+= 3           # hint
+        print("{}. {}".format(count, i["title"]), end=" ")           # hint  {}삭제
+        count+= 1           # hint
     print("")
 
     # todo중 하나 입력
-    user_input = input("Title 번호: ")-1           # hint
+    user_input = int(input("Title 번호: "))-1           # hint int, -1 추가
     # Status 입력
-    user_status = int(input("Status: "))           # hint
+    user_status = input("Status: ")           # hint  int 제거
 
     # 사용자가 입력한 번호에 해당하는 title과 그 title id를 찾음
     result_todo_title = collection1.find().skip(user_input).limit(1)
@@ -51,8 +51,8 @@ def Todos(user_id, collection1, collection2):
     collection2.insert_one({"user_id" : user_id, "user_todo_id" : inserted_todo_id, "todo_title" : inserted_todo, "user_status" : user_status})
 
 # 종료 여부 입력 function
-def End(collection1, collection2):           # hint
-    user_end = 'x'           # hint
+def End(collection, collection1, collection2):           # hint collection 추가
+    user_end = 'q'           # hint
     while True:
         # c 입력 시 Todos() 다시 실행
         if user_end == "c":
