@@ -2,7 +2,7 @@ from pymongo import MongoClient
 import random
 
 def Connect_Mongo(collection_name):
-    mongoClient = MongoClient("mongodb://localhost:27017")    # mongodb 접속
+    mongoClient = MongoClient("mongodb://mongodb:27017")    # mongodb 접속
     database = mongoClient["todo_report"]   # database 연결
     return database[collection_name]        # collection 작업
 
